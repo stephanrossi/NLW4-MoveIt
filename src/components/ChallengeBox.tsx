@@ -3,22 +3,24 @@ import { useContext } from "react"
 import { ChallengesContext } from "./../contexts/ChallengeContext"
 
 export function ChallengeBox() {
-  const contextData = useContext(ChallengesContext)
-  
-  const hasActiveChallenge = true
+  const { activeChallenge, resetChallenge } = useContext(ChallengesContext)
 
   return (
     <div className={styles.challengeBoxContainer}>
-      {hasActiveChallenge ? (
+      {activeChallenge ? (
         <div className={styles.challengeActive}>
-          <header>Ganhe 400xp</header>
+          <header>Ganhe {activeChallenge.amount} xp</header>
           <main>
             <img src="icons/body.png" alt="" />
             <strong>Novo desafio</strong>
-            <p>Levante da cama</p>
+            <p>{activeChallenge.description}</p>
           </main>
           <footer>
-            <button type="button" className={styles.challengeFailedButton}>
+            <button
+              type="button"
+              className={styles.challengeFailedButton}
+              onClick={resetChallenge}
+            >
               Falhei
             </button>
             <button type="button" className={styles.challengeSucceedButton}>
